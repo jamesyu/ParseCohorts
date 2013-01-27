@@ -21,10 +21,10 @@ var header_test = new Cohorts.Test({
 });
 
 $('#big').click(function() {
-  header_test.event('Clicked on Header');
+  header_test.event('clicked_on_header');
 });
 
 $('#small').click(function() {
-  header_test.event('Clicked on Header');
+  header_test.event('clicked_on_header');
 });
 
