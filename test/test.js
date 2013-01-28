@@ -1,6 +1,5 @@
 
 Parse.initialize("IGRd8s5bejBMTcgBHZvkzbgRJEFDxxfUEA8sZ2V2", "nfolTMwYqc9p3Zv59Zaxw8g4vP1temqjSAOAp5PX");
-Cohorts.Options.debug = true;
 
 var header_test = new Cohorts.Test({
   storageAdapter: ParseAdapter,
