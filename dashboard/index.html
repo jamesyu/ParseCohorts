@@ -11,17 +11,77 @@
   </head>
 
   <body>
-    <div id="menu">
+    <div class="left">
       <h1>Cohorts</h1>
       <h2>A/B testing powered by Parse</h2>
 
-      <div class="tests">
+      <div id="menu">
+        Loading...
       </div>
     </div>
 
-    <div id="dashboard">
-      
-    </div>
+    <div id="dashboard"></div>
+
+    <script type="text/html" id="menu_template">
+      <ul>
+        <% tests.forEach(function(item) { %>
+          <li><a href="#test/<%= item.get('name') %>"><%= item.get('name') %></a></li>
+        <% }); %>
+      </ul>
+    </script>
+
+    <script type="text/html" id="dashboard_template">
+      <h3><%= test.get('name') %></h3>
+
+      <ul class="main-stats">
+        <li>
+          <div class="stat"><%= test.get('total') %></div>
+          <div class="desc">Total visitors</div>
+        </li>
+        <li>
+          <div class="stat"><%= test.cohortKeys().length %></div>
+          <div class="desc">Total cohorts</div>
+        </li>
+        <li>
+          <div class="stat"><%= test.totalEvents() %></div>
+          <div class="desc">Total events</div>
+        </li>
+      </ul>
+
+
+      <% if (test.eventKeys().length === 0) { %>
+        No events yet.
+      <% } else { %>
+        <h3>Events</h3>
+
+        <% var events = test.events(); %>
+        <% _(events).chain().keys().each(function(event) { %>
+          <div class="event">
+            <h3><%= event %></h3>
+
+            <% _(events[event]).chain().keys().each(function(cohort) { %>
+              <h4><%= cohort %></h4>
+
+              <ul class="event-stats">
+                <li>
+                  <div class="stat"><%= test.get(cohort) %></div>
+                  <div class="desc">Total in cohort</div>
+                </li>
+                <li>
+                  <div class="stat"><%= events[event][cohort] %></div>
+                  <div class="desc">Events triggered</div>
+                </li>
+                <li>
+                  <div class="stat"><%= events[event][cohort] / test.get(cohort) %></div>
+                  <div class="desc">Conversion rate</div>
+                </li>
+                  
+              </ul>
+            <%  }); %>
+          </div>
+        <%  }); %>
+      <% } %>
+    </script>
   </body>
 </html>
   
