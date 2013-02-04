@@ -21,9 +21,11 @@ var Test = Parse.Object.extend({
   // The total number of events in the test
   totalEvents: function() {
     var self = this;
-    return this.eventKeys().reduce(function(memo, eventKey) {
+    var total = this.eventKeys().reduce(function(memo, eventKey) {
       return memo + self.get(eventKey);
     }, 0);
+
+    return total.value();
   },
 
   // Iterates and pulls out all event info into an object
@@ -115,11 +117,15 @@ var Menu = Backbone.View.extend({
     _.bindAll(this, 'render');
     this.state = options.state;
     this.state.get("tests").on("all", this.render);
+    this.state.on("change:dashboardTest", this.render);
   },
 
   render: function() {
     var template = $("#menu_template").html();
-    var html = _.template(template)({ tests: this.state.get('tests') });
+    var html = _.template(template)({
+      tests: this.state.get('tests'),
+      currentTest: this.state.get('dashboardTest')
+    });
     
     this.$el.html(html);
   }

@@ -8,30 +8,37 @@
        Parse.initialize("IGRd8s5bejBMTcgBHZvkzbgRJEFDxxfUEA8sZ2V2", "nfolTMwYqc9p3Zv59Zaxw8g4vP1temqjSAOAp5PX");
      </script>
      <script src="js/app.js"></script>
+     <link href="stylesheets/styles.css" rel="stylesheet" type="text/css" />
   </head>
 
   <body>
-    <div class="left">
-      <h1>Cohorts</h1>
-      <h2>A/B testing powered by Parse</h2>
+    <div id="content">
+      <div class="left">
+        <h1>Cohorts</h1>
+        <h2>A/B testing powered by Parse</h2>
 
-      <div id="menu">
-        Loading...
+        <div id="menu">
+          Loading...
+        </div>
       </div>
+
+      <div id="dashboard"></div>
     </div>
 
-    <div id="dashboard"></div>
-
     <script type="text/html" id="menu_template">
+      <p>TESTS</p>
       <ul>
         <% tests.forEach(function(item) { %>
-          <li><a href="#test/<%= item.get('name') %>"><%= item.get('name') %></a></li>
+          <% if (currentTest) { %>
+            <% var klass = item.id === currentTest.id ? "active" : "" %>
+          <% } %>
+          <li><a href="#test/<%= item.get('name') %>" class="<%= klass %>"><%= item.get('name') %></a></li>
         <% }); %>
       </ul>
     </script>
 
     <script type="text/html" id="dashboard_template">
-      <h3><%= test.get('name') %></h3>
+      <h3>Results for <strong><%= test.get('name') %></strong></h3>
 
       <ul class="main-stats">
         <li>
@@ -49,12 +56,12 @@
       </ul>
 
 
-      <% if (test.eventKeys().length === 0) { %>
+      <h3>Events</h3>
+      <% if (test.totalEvents() === 0) { %>
         No events yet.
       <% } else { %>
-        <h3>Events</h3>
-
         <% var events = test.events(); %>
+
         <% _(events).chain().keys().each(function(event) { %>
           <div class="event">
             <h3><%= event %></h3>

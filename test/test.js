@@ -3,7 +3,7 @@ Parse.initialize("IGRd8s5bejBMTcgBHZvkzbgRJEFDxxfUEA8sZ2V2", "nfolTMwYqc9p3Zv59Z
 
 var header_test = new Cohorts.Test({
   storageAdapter: ParseAdapter,
-  name: 'another_test',
+  name: 'w00t',
   sample: 1, // include all visitors in the test
   cohorts: {
     big: {

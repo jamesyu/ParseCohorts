@@ -1,0 +1,110 @@
+@import "compass/reset";
+@import "compass/css3";
+@import "compass/utilities";
+
+$blue: #3399FF;
+
+body {
+    padding: 50px 25px;
+    margin: auto;
+    background: #ddd;
+    font-family: Helvetica;
+}
+
+strong {
+    font-weight: bold;
+}
+
+#content {
+    width: 1200px;
+    margin: auto;
+
+    .left {
+        width: 250px;
+        float: left;
+
+        h1 {
+            font-size: 35px;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            font-size: 15px;
+            color: #888;
+        }
+        
+        #menu {
+            margin-top: 35px;
+            p {
+                font-size: 12px;
+                color: #888;
+                margin-bottom: 10px;
+                padding-left: 10px;
+            }
+
+            ul {
+                li {
+                    a {
+                        color: #333;
+                        display: block;
+                        padding: 10px;
+                        font-size: 16px;
+                        margin-bottom: 5px;
+                        text-decoration: none;
+                        @include border-radius(5px);
+
+                        &:hover {
+                            background: #ccc;
+                        }
+
+                        &.active {
+                            color: white;
+                            background: $blue;
+                            @include single-box-shadow(darken($blue, 10%), 0, 0, 2px, 2px, inset);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #dashboard {
+        margin-left: 270px;
+        border: 1px solid #ddd;
+        @include border-radius(5px);
+        background: white;
+        padding: 20px;
+
+        h3 {
+            font-size: 23px;
+            margin-bottom: 25px;
+        }
+
+        .main-stats {
+            margin-bottom: 35px;
+            @include border-radius(5px);
+            padding: 15px 25px;
+            background: $blue;
+            @include single-box-shadow(darken($blue, 10%), 0, 0, 2px, 2px, inset);
+            @include clearfix;
+            
+            li {
+                display: block;
+                float: left;
+                width: 200px;
+                color: white;
+
+                .stat {
+                    font-size: 45px;
+                    margin-bottom: 5px;
+                }
+                .desc {
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+
+}
